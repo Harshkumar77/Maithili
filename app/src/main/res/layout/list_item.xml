@@ -10,46 +10,49 @@
         android:id="@+id/image_"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="2dp"
         android:background="#D8ADDF"
         android:src="@mipmap/ic_launcher"
 
         />
 
-    <FrameLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        >
+        android:layout_height="match_parent">
 
-    <LinearLayout
-        android:id="@+id/box"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="2dp"
-        android:background="#D8ADDF"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:paddingLeft="16dp">
-
-
-        <TextView
-            android:id="@+id/maithili_translation"
+        <LinearLayout
+            android:id="@+id/box"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="#FAF9F9"
-            android:textSize="18sp"
-            tools:text="एक" />
+            android:layout_height="match_parent"
+            android:background="#D8ADDF"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:paddingLeft="16dp">
 
+
+            <TextView
+                android:id="@+id/maithili_translation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#FAF9F9"
+                android:textSize="18sp"
+                tools:text="एक" />
+
+            <TextView
+                android:id="@+id/translation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#FAF9F9"
+                android:textSize="18sp"
+                tools:text="One" />
+
+        </LinearLayout>
         <TextView
-            android:id="@+id/translation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="#FAF9F9"
-            android:textSize="18sp"
-            tools:text="One" />
-
-    </LinearLayout>
-    </FrameLayout>
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="▶"
+            android:gravity="center"
+            android:layout_alignEnd="@id/box"
+            android:textSize="40sp"/>
+    </RelativeLayout>
 
 </LinearLayout>
