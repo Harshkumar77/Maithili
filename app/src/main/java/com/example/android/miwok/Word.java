@@ -82,5 +82,9 @@ public class Word {
     public int getmImage() {
         return mImage;
     }
+
+    public int getmAudio(){
+        return mAudio;
+    }
 }
 
