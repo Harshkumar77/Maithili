@@ -44,6 +44,7 @@ public class Number extends AppCompatActivity {
         numbers.add(new Word("Eight", "आठ", R.drawable.number_eight, R.raw.eight));
         numbers.add(new Word("Nine", "नौ", R.drawable.number_nine, R.raw.nine));
         numbers.add(new Word("Ten", "दस", R.drawable.number_ten, R.raw.ten));
+
         WordAdapter wordAdapter = new WordAdapter(this, numbers, R.color.Number);
 
         GridView listView = (GridView) findViewById(R.id.list);
