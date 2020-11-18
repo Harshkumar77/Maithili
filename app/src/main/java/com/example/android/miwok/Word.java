@@ -13,6 +13,27 @@ public class Word {
 
     private boolean isThereImage;
 
+    /**Resource id of the images*/
+    private int mAudio;
+
+    private boolean isThereAudio;
+
+    /**
+     * Create a new Word object.
+     *
+     * @param defaultTranslation is the word in a language that the user is already familiar with
+     *                           (such as English)
+     * @param miwokTranslation is the word in the Miwok language
+     */
+    public Word(String defaultTranslation, String miwokTranslation, int image , int audio) {
+        mDefaultTranslation = defaultTranslation;
+        mMiwokTranslation = miwokTranslation;
+        mImage=image;
+        isThereImage = true;
+        mAudio=audio;
+        isThereAudio=true;
+    }
+
     /**
      * Create a new Word object.
      *

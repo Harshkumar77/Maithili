@@ -2,6 +2,7 @@ package com.example.android.miwok;
 
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -61,7 +62,6 @@ public class Number extends AppCompatActivity {
                 Word word = numbers.get(position);
                 t=Toast.makeText(getBaseContext(), word.getMiwokTranslation(), Toast.LENGTH_SHORT);
                 t.show();
-
             }
         });
 
