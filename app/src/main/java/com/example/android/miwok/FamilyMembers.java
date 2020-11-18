@@ -1,6 +1,7 @@
 package com.example.android.miwok;
 
 import android.graphics.drawable.ColorDrawable;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -15,6 +16,9 @@ import java.util.ArrayList;
 public class FamilyMembers extends AppCompatActivity {
 
     private Toast t;
+
+    private MediaPlayer mediaPlayer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,14 +28,14 @@ public class FamilyMembers extends AppCompatActivity {
             getSupportActionBar().setBackgroundDrawable(new ColorDrawable(ContextCompat.getColor(getBaseContext(),R.color.Family)));
 
         final ArrayList<Word> familyMember = new ArrayList<>();
-        familyMember.add(new Word("Father", "पिता , बाबू",R.drawable.family_father));
-        familyMember.add(new Word("Mother", "माँ , माए",R.drawable.family_mother));
+        familyMember.add(new Word("Father", "पिता , बाबू",R.drawable.family_father,R.raw.father));
+        familyMember.add(new Word("Mother", "माँ , माए",R.drawable.family_mother,R.raw.mother));
 //        familyMember.add(new Word("Husband", "पति , भतार"));
 //        familyMember.add(new Word("Wife", "बीबी , भार्या"));
-        familyMember.add(new Word("Son", "पूत , बेटा",R.drawable.family_son));
-        familyMember.add(new Word("Daughter", "बेटी",R.drawable.family_daughter));
-        familyMember.add(new Word("Brother", "भाई",R.drawable.family_older_brother));
-        familyMember.add(new Word("Sister", "बहिन , बहिनि",R.drawable.family_older_sister));
+        familyMember.add(new Word("Son", "पूत , बेटा",R.drawable.family_son,R.raw.son));
+        familyMember.add(new Word("Daughter", "बेटी",R.drawable.family_daughter,R.raw.daughter));
+        familyMember.add(new Word("Brother", "भाई",R.drawable.family_older_brother,R.raw.brother));
+        familyMember.add(new Word("Sister", "बहिन , बहिनि",R.drawable.family_older_sister,R.raw.sister));
 //        familyMember.add(new Word("Uncle", "चाचा"));
 //        familyMember.add(new Word("Aunt", "चाची"));
 //        familyMember.add(new Word("Maternal Uncle", "मामा"));
@@ -48,12 +52,15 @@ public class FamilyMembers extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //When gridView is clicked
-                if(t!=null){
-                    t.cancel();
-                }
+
+                if (t != null) t.cancel();
+                if (mediaPlayer != null) mediaPlayer.release();
+
                 Word word = familyMember.get(position);
-                t=Toast.makeText(getBaseContext(), word.getMiwokTranslation(), Toast.LENGTH_SHORT);
+                t = Toast.makeText(getBaseContext(), word.getMiwokTranslation(), Toast.LENGTH_SHORT);
                 t.show();
+                mediaPlayer = MediaPlayer.create(getBaseContext(), word.getmAudio());
+                mediaPlayer.start();
             }
         });
 
@@ -62,9 +69,7 @@ public class FamilyMembers extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        if(t!=null){
-            t.cancel();
-        }
-
+        if (t != null) t.cancel();
+        if (mediaPlayer != null) mediaPlayer.release();
     }
 }
