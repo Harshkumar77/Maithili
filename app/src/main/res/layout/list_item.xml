@@ -12,12 +12,15 @@
         android:layout_height="wrap_content"
         android:background="#D8ADDF"
         android:src="@mipmap/ic_launcher"
-
-        />
+        android:layout_marginBottom="2dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="2dp"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginBottom="2dp"
+        android:layout_marginRight="2dp">
 
         <LinearLayout
             android:id="@+id/box"
@@ -46,13 +49,14 @@
                 tools:text="One" />
 
         </LinearLayout>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="▶"
-            android:gravity="center"
             android:layout_alignEnd="@id/box"
-            android:textSize="40sp"/>
+            android:gravity="center"
+            android:text="▶"
+            android:textSize="40sp" />
     </RelativeLayout>
 
 </LinearLayout>
