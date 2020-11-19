@@ -21,6 +21,14 @@ public class Number extends AppCompatActivity {
 
     private MediaPlayer mediaPlayer;
 
+    private MediaPlayer.OnCompletionListener mediaCompletionListener = new MediaPlayer.OnCompletionListener() {
+        @Override
+        public void onCompletion(MediaPlayer mp) {
+            if (mediaPlayer != null) mediaPlayer.release();
+            mediaPlayer=null;
+        }
+    };
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +74,7 @@ public class Number extends AppCompatActivity {
                 t.show();
                 mediaPlayer = MediaPlayer.create(getBaseContext(), word.getmAudio());
                 mediaPlayer.start();
+                mediaPlayer.setOnCompletionListener(mediaCompletionListener);
             }
         });
 
