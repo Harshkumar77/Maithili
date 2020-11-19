@@ -2,6 +2,7 @@ package com.example.android.miwok;
 
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
@@ -21,6 +22,22 @@ public class Phrase extends AppCompatActivity {
 
     private MediaPlayer mediaPlayer;
 
+    private AudioManager audioManager ;
+
+    private AudioManager.OnAudioFocusChangeListener onAudioFocusChangeListener = new AudioManager.OnAudioFocusChangeListener() {
+        @Override
+        public void onAudioFocusChange(int focusChange) {
+            if (mediaPlayer != null) {
+                if (focusChange ==AudioManager.AUDIOFOCUS_GAIN_TRANSIENT ||
+                        focusChange ==AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK ||
+                        focusChange ==AudioManager.AUDIOFOCUS_LOSS) {
+                    mediaPlayer.release();
+                    mediaPlayer = null;
+                }
+            }
+        }
+    };
+
     private MediaPlayer.OnCompletionListener mediaCompletionListener = new MediaPlayer.OnCompletionListener() {
         @Override
         public void onCompletion(MediaPlayer mp) {
@@ -37,6 +54,8 @@ public class Phrase extends AppCompatActivity {
 
         if (getSupportActionBar() != null)
             getSupportActionBar().setBackgroundDrawable(new ColorDrawable(ContextCompat.getColor(getBaseContext(), R.color.Phrase)));
+
+        audioManager= (AudioManager) getSystemService(AUDIO_SERVICE);
 
         //ArrayList of the numbers in English
 
@@ -63,11 +82,19 @@ public class Phrase extends AppCompatActivity {
                 if (mediaPlayer != null) mediaPlayer.release();
 
                 Word word = phrases.get(position);
-                t = Toast.makeText(getBaseContext(), word.getMiwokTranslation(), Toast.LENGTH_SHORT);
-                t.show();
-                mediaPlayer = MediaPlayer.create(getBaseContext(), word.getmAudio());
-                mediaPlayer.start();
-                mediaPlayer.setOnCompletionListener(mediaCompletionListener);
+
+                int result = audioManager.requestAudioFocus(onAudioFocusChangeListener,
+                        AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN_TRANSIENT);
+
+                if (result == AudioManager.AUDIOFOCUS_REQUEST_GRANTED){
+                    t = Toast.makeText(getBaseContext(), word.getMiwokTranslation(), Toast.LENGTH_SHORT);
+                    t.show();
+                    mediaPlayer = MediaPlayer.create(getBaseContext(), word.getmAudio());
+                    mediaPlayer.start();
+                    mediaPlayer.setOnCompletionListener(mediaCompletionListener);
+
+                }
+
             }
         });
 
@@ -77,8 +104,9 @@ public class Phrase extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         if (t != null) t.cancel();
-        if (mediaPlayer != null) mediaPlayer.release();
-
+        if (mediaPlayer != null) {
+            mediaPlayer.release();
+            mediaPlayer = null;
+        }
     }
-
 }

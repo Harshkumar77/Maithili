@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import android.graphics.drawable.ColorDrawable;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
@@ -18,6 +19,22 @@ public class Colors extends AppCompatActivity {
     private Toast t;
 
     private MediaPlayer mediaPlayer;
+
+    private AudioManager audioManager ;
+
+    private AudioManager.OnAudioFocusChangeListener onAudioFocusChangeListener = new AudioManager.OnAudioFocusChangeListener() {
+        @Override
+        public void onAudioFocusChange(int focusChange) {
+            if (mediaPlayer != null) {
+                if (focusChange ==AudioManager.AUDIOFOCUS_GAIN_TRANSIENT ||
+                        focusChange ==AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK ||
+                        focusChange ==AudioManager.AUDIOFOCUS_LOSS) {
+                    mediaPlayer.release();
+                    mediaPlayer = null;
+                }
+            }
+        }
+    };
 
     private MediaPlayer.OnCompletionListener mediaCompletionListener = new MediaPlayer.OnCompletionListener() {
         @Override
@@ -34,6 +51,9 @@ public class Colors extends AppCompatActivity {
 
         if (getSupportActionBar() != null)
             getSupportActionBar().setBackgroundDrawable(new ColorDrawable(ContextCompat.getColor(getBaseContext(), R.color.Color)));
+
+
+        audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
 
         final ArrayList<Word> colors = new ArrayList<>();
         colors.add(new Word("Red", "ललका", R.drawable.color_red, R.raw.red));
@@ -63,11 +83,19 @@ public class Colors extends AppCompatActivity {
                 if (mediaPlayer != null) mediaPlayer.release();
 
                 Word word = colors.get(position);
-                t = Toast.makeText(getBaseContext(), word.getMiwokTranslation(), Toast.LENGTH_SHORT);
-                t.show();
-                mediaPlayer = MediaPlayer.create(getBaseContext(), word.getmAudio());
-                mediaPlayer.start();
-                mediaPlayer.setOnCompletionListener(mediaCompletionListener);
+
+                int result = audioManager.requestAudioFocus(onAudioFocusChangeListener,
+                        AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN_TRANSIENT);
+
+                if (result == AudioManager.AUDIOFOCUS_REQUEST_GRANTED){
+                    t = Toast.makeText(getBaseContext(), word.getMiwokTranslation(), Toast.LENGTH_SHORT);
+                    t.show();
+                    mediaPlayer = MediaPlayer.create(getBaseContext(), word.getmAudio());
+                    mediaPlayer.start();
+                    mediaPlayer.setOnCompletionListener(mediaCompletionListener);
+
+                }
+
             }
         });
 
@@ -77,8 +105,9 @@ public class Colors extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         if (t != null) t.cancel();
-        if (mediaPlayer != null) mediaPlayer.release();
-
+        if (mediaPlayer != null) {
+            mediaPlayer.release();
+            mediaPlayer = null;
+        }
     }
-
 }
