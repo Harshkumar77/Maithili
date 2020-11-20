@@ -50,7 +50,10 @@ public class FamilyMembers extends AppCompatActivity {
         setContentView(R.layout.words_list);
 
         if (getSupportActionBar() != null)
-            getSupportActionBar().setBackgroundDrawable(new ColorDrawable(ContextCompat.getColor(getBaseContext(), R.color.Family)));
+            getSupportActionBar().setBackgroundDrawable(new ColorDrawable(ContextCompat.getColor(getBaseContext(), R.color.StatusBar)));
+
+        if (getWindow() != null)
+            getWindow().setStatusBarColor(ContextCompat.getColor(getBaseContext(), R.color.StatusBar));
 
 
         audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);

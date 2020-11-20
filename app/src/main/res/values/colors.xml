@@ -7,4 +7,5 @@
     <color name="Family">#F44336</color>
     <color name="Color">#3F51B5</color>
     <color name="Phrase">#9C27B0</color>
+    <color name="StatusBar">#574848</color>
 </resources>

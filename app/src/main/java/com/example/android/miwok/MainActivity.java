@@ -1,8 +1,10 @@
 package com.example.android.miwok;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -19,7 +21,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         int beta = 5;
-        getSupportActionBar().hide();
+        if (getSupportActionBar() != null)
+            getSupportActionBar().hide();
+
+        if (getWindow() != null)
+            getWindow().setStatusBarColor(ContextCompat.getColor(getBaseContext(), R.color.Number));
         // Find the View that shows the numbers category
         TextView numbers = (TextView) findViewById(R.id.Numbers);
 

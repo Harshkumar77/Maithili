@@ -8,6 +8,7 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.Toast;
@@ -20,15 +21,15 @@ public class Colors extends AppCompatActivity {
 
     private MediaPlayer mediaPlayer;
 
-    private AudioManager audioManager ;
+    private AudioManager audioManager;
 
     private AudioManager.OnAudioFocusChangeListener onAudioFocusChangeListener = new AudioManager.OnAudioFocusChangeListener() {
         @Override
         public void onAudioFocusChange(int focusChange) {
             if (mediaPlayer != null) {
-                if (focusChange ==AudioManager.AUDIOFOCUS_GAIN_TRANSIENT ||
-                        focusChange ==AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK ||
-                        focusChange ==AudioManager.AUDIOFOCUS_LOSS) {
+                if (focusChange == AudioManager.AUDIOFOCUS_GAIN_TRANSIENT ||
+                        focusChange == AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK ||
+                        focusChange == AudioManager.AUDIOFOCUS_LOSS) {
                     mediaPlayer.release();
                     mediaPlayer = null;
                 }
@@ -40,7 +41,7 @@ public class Colors extends AppCompatActivity {
         @Override
         public void onCompletion(MediaPlayer mp) {
             if (mediaPlayer != null) mediaPlayer.release();
-            mediaPlayer=null;
+            mediaPlayer = null;
         }
     };
 
@@ -50,8 +51,10 @@ public class Colors extends AppCompatActivity {
         setContentView(R.layout.words_list);
 
         if (getSupportActionBar() != null)
-            getSupportActionBar().setBackgroundDrawable(new ColorDrawable(ContextCompat.getColor(getBaseContext(), R.color.Color)));
+            getSupportActionBar().setBackgroundDrawable(new ColorDrawable(ContextCompat.getColor(getBaseContext(), R.color.StatusBar)));
 
+        if (getWindow() != null)
+            getWindow().setStatusBarColor(ContextCompat.getColor(getBaseContext(), R.color.StatusBar));
 
         audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
 
@@ -87,7 +90,7 @@ public class Colors extends AppCompatActivity {
                 int result = audioManager.requestAudioFocus(onAudioFocusChangeListener,
                         AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN_TRANSIENT);
 
-                if (result == AudioManager.AUDIOFOCUS_REQUEST_GRANTED){
+                if (result == AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
                     t = Toast.makeText(getBaseContext(), word.getMiwokTranslation(), Toast.LENGTH_SHORT);
                     t.show();
                     mediaPlayer = MediaPlayer.create(getBaseContext(), word.getmAudio());

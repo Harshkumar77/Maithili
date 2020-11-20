@@ -53,7 +53,10 @@ public class Phrase extends AppCompatActivity {
         setContentView(R.layout.words_list);
 
         if (getSupportActionBar() != null)
-            getSupportActionBar().setBackgroundDrawable(new ColorDrawable(ContextCompat.getColor(getBaseContext(), R.color.Phrase)));
+            getSupportActionBar().setBackgroundDrawable(new ColorDrawable(ContextCompat.getColor(getBaseContext(), R.color.StatusBar)));
+
+        if (getWindow() != null)
+            getWindow().setStatusBarColor(ContextCompat.getColor(getBaseContext(), R.color.StatusBar));
 
         audioManager= (AudioManager) getSystemService(AUDIO_SERVICE);
 
@@ -61,10 +64,10 @@ public class Phrase extends AppCompatActivity {
 
         final ArrayList<Word> phrases = new ArrayList<>();
 
-        phrases.add(new Word("How are you ? ","अहाँ केहन छी?",R.raw.how_are_you));
-        phrases.add(new Word("I am fine.","हम ठीक छी । ",R.raw.i_am_fine));
-        phrases.add(new Word("What is your name ?","अहके नाम कथि भेल ?",R.raw.what_is_your_name));
-        phrases.add(new Word("My name is ______ .","हमार नाम _____ छी।",R.raw.my_name_is));
+        phrases.add(new Word("How are you ? ","अहाँ केहन छी?",R.drawable.baseline_comment_white_48,R.raw.how_are_you));
+        phrases.add(new Word("I am fine.","हम ठीक छी । ",R.drawable.baseline_comment_white_48,R.raw.i_am_fine));
+        phrases.add(new Word("What is your name ?","अहके नाम कथि भेल ?",R.drawable.baseline_comment_white_48,R.raw.what_is_your_name));
+        phrases.add(new Word("My name is ______ .","हमार नाम _____ छी।",R.drawable.baseline_comment_white_48,R.raw.my_name_is));
         WordAdapter wordAdapter = new WordAdapter(this, phrases, R.color.Phrase);
 
         GridView listView = (GridView) findViewById(R.id.list);
