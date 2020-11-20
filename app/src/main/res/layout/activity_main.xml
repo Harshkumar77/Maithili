@@ -9,32 +9,52 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/Numbers"
-        style="@style/sections"
-        android:background="@color/Number"
-        android:text="@string/Numbers"
-        />
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/Number">
 
-    <TextView
-        style="@style/sections"
-        android:background="@color/Family"
-        android:text="@string/Family_members"
-        android:id="@+id/Family_members"
+        <TextView
+            android:id="@+id/Numbers"
+            style="@style/sections"
+            android:background="?attr/selectableItemBackground"
+            android:text="@string/Numbers" />
 
-        />
+    </FrameLayout>
 
-    <TextView
-        android:id="@+id/Color"
-        style="@style/sections"
-        android:background="@color/Color"
-        android:text="@string/Colors"/>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/Family">
 
+        <TextView
+            android:id="@+id/Family_members"
+            style="@style/sections"
+            android:background="?attr/selectableItemBackground"
+            android:text="@string/Family_members" />
+    </FrameLayout>
 
-    <TextView
-        style="@style/sections"
-        android:background="@color/Phrase"
-        android:text="@string/Phrases"
-        android:id="@+id/Phrase"/>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/Color">
 
+        <TextView
+            android:id="@+id/Color"
+            style="@style/sections"
+            android:background="?attr/selectableItemBackground"
+            android:text="@string/Colors" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/Phrase">
+
+        <TextView
+            android:id="@+id/Phrase"
+            style="@style/sections"
+            android:background="?attr/selectableItemBackground"
+            android:text="@string/Phrases" />
+    </FrameLayout>
 </LinearLayout>
